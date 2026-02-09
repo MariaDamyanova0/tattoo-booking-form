@@ -232,3 +232,193 @@ input:focus, select:focus, textarea:focus {
   background: #120a20;
   color: #f1ecff;
 }
+
+:root{
+  --bg1:#12091c;
+  --bg2:#2a144a;
+  --card: rgba(20, 12, 34, 0.96);
+  --border:#3b2468;
+  --accent:#8a4dff;
+  --text:#f1ecff;
+  --muted:#cbbcff;
+}
+
+/* Subtle tattoo-flash pattern */
+body{
+  background:
+    linear-gradient(135deg, var(--bg1), var(--bg2)),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cg fill='none' stroke='%238a4dff' stroke-opacity='0.12' stroke-width='2'%3E%3Cpath d='M35 40c10-18 35-18 45 0'/%3E%3Cpath d='M35 40c8 10 12 18 12 26 0 10-7 18-18 22'/%3E%3Cpath d='M80 40c-8 10-12 18-12 26 0 10 7 18 18 22'/%3E%3Cpath d='M120 55c-10-14-28-10-30 6'/%3E%3Cpath d='M120 55c6 12 2 22-10 26'/%3E%3Cpath d='M95 61c-4 12 4 22 18 20'/%3E%3Cpath d='M42 110c10-10 26-10 36 0'/%3E%3Cpath d='M42 110c6 10 2 20-10 24'/%3E%3Cpath d='M78 110c-6 10-2 20 10 24'/%3E%3C/g%3E%3C/svg%3E");
+  background-blend-mode: overlay;
+}
+
+/* Premium card feel */
+.card{
+  background: var(--card);
+  border-radius: 16px;
+  box-shadow: 0 18px 50px rgba(138, 77, 255, 0.2);
+}
+
+/* Header polish */
+.header h1{
+  letter-spacing: 0.3px;
+}
+
+.subtitle{
+  opacity: 0.9;
+}
+
+.badge{
+  display:inline-block;
+  margin-top: 8px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  margin-bottom: 18px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
+  
+}
+
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.7) saturate(1.2);
+  
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 16px;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.35),
+    rgba(0,0,0,0.55)
+  );
+}
+
+.hero-overlay h1 {
+  margin: 0 0 6px;
+  font-size: 32px;
+  letter-spacing: 0.4px;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.7);
+}
+
+.hero-overlay p {
+  margin: 0;
+  color: #e8dbff;
+  max-width: 680px;
+}
+
+.hero-overlay h1 {
+  text-shadow:
+    0 0 8px rgba(255, 80, 120, 0.5),
+    0 0 18px rgba(138, 77, 255, 0.6),
+    0 6px 30px rgba(0,0,0,0.7);
+}
+
+body{
+  background:
+    linear-gradient(180deg, rgba(10,10,10,0.9), rgba(10,10,10,0.9)),
+    radial-gradient(1000px 500px at 50% -20%, rgba(255,255,255,0.06), transparent 60%);
+}
+
+/* Neutral dark studio cards */
+.card{
+  background: rgba(14, 14, 18, 0.92);   /* dark grey */
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.5);
+}
+
+/* Inputs + selects: darker, neutral */
+input, select, textarea{
+  background: #0f0f14;
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #f1ecff;
+}
+
+input:focus, select:focus, textarea:focus{
+  border-color: #ff4d7a;  /* subtle neon accent */
+  box-shadow: 0 0 0 2px rgba(255,77,122,0.15);
+}
+
+/* Buttons: neutral with neon accent */
+.primary{
+  background: linear-gradient(135deg, #ff4d7a, #8a4dff);
+  border: none;
+}
+
+.req-btn{
+  border-color: rgba(255,255,255,0.14);
+}
+
+.req-btn:hover{
+  border-color: #ff4d7a;
+}
+
+*{
+  --border: rgba(255,255,255,0.08);
+}
+
+input:focus, select:focus, textarea:focus{
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255,77,122,0.2);
+}
+
+.request-item{
+  background: rgba(12, 12, 16, 0.92);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+}
+
+.request-item .tag{
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: #eae6ff;
+}
+
+.request-item.contacted{
+  opacity: 0.75;
+}
+
+.req-btn{
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.14);
+  color: #f1ecff;
+}
+
+.req-btn:hover{
+  border-color: #ff4d7a;
+}
+
+#requestsList input{
+  background: #0f0f14;
+}
+
+/* --- Neutralize purple heading --- */
+.hero-overlay h1{
+  color: #f5f5f7; /* clean light text */
+  text-shadow:
+    0 2px 12px rgba(0,0,0,0.7),   /* depth */
+    0 0 10px rgba(255,77,122,0.25); /* subtle neon accent */
+}
+
+.hero-overlay p{
+  color: #e6e6ea;
+}
+
