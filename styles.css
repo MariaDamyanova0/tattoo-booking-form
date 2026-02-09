@@ -216,3 +216,19 @@ input:focus, select:focus, textarea:focus {
 .request-item.contacted .tag {
   border-color: #8a4dff;
 }
+
+.req-toolbar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 10px 0 12px;
+}
+
+.req-toolbar input {
+  flex: 1;
+  padding: 10px 10px;
+  border-radius: 10px;
+  border: 1px solid #3b2468;
+  background: #120a20;
+  color: #f1ecff;
+}

@@ -47,10 +47,32 @@ const statusEl = $("#formStatus");
 
 const requestsList = $("#requestsList");
 const requestsEmpty = $("#requestsEmpty");
+const searchInput = $("#searchInput");
+const clearAllBtn = $("#clearAllBtn");
+
+let searchQuery = "";
+
 
 // ---------- state ----------
 let requests = loadRequests();
 renderRequests();
+
+searchInput.addEventListener("input", (e) => {
+  searchQuery = e.target.value.toLowerCase();
+  renderRequests();
+});
+
+clearAllBtn.addEventListener("click", () => {
+  if (!requests.length) return;
+
+  const ok = confirm("Clear all saved requests? This cannot be undone.");
+  if (!ok) return;
+
+  requests = [];
+  saveRequests(requests);
+  renderRequests();
+});
+
 
 // ---------- events ----------
 form.addEventListener("submit", (e) => {
@@ -154,23 +176,36 @@ function toggleContacted(id) {
 }
 
 function deleteRequest(id) {
+  const ok = confirm("Delete this request?");
+  if (!ok) return;
+
   requests = requests.filter((r) => r.id !== id);
   saveRequests(requests);
   renderRequests();
 }
 
+
 // ---------- rendering ----------
 function renderRequests() {
   requestsList.innerHTML = "";
 
-  if (!requests.length) {
+  let visible = requests;
+
+  if (searchQuery.trim() !== "") {
+    visible = requests.filter((r) => {
+      const blob = `${r.name} ${r.email} ${r.instagram} ${r.style} ${r.placement} ${r.size} ${r.budget} ${r.date} ${r.notes}`.toLowerCase();
+      return blob.includes(searchQuery);
+    });
+  }
+
+  if (!visible.length) {
     requestsEmpty.style.display = "block";
     return;
   }
 
   requestsEmpty.style.display = "none";
 
-  for (const r of requests) {
+  for (const r of visible) {
     const li = document.createElement("li");
     li.className = "request-item";
     if (r.contacted) li.classList.add("contacted");
