@@ -28,6 +28,16 @@ function loadRequests() {
   }
 }
 
+// Prevent HTML injection in rendered text
+function escapeHtml(str) {
+  return String(str)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
 // ---------- DOM ----------
 $("#year").textContent = new Date().getFullYear();
 
@@ -60,6 +70,7 @@ form.addEventListener("submit", (e) => {
   const newRequest = {
     id: Date.now(),
     createdAt: new Date().toISOString(),
+    contacted: false,
     ...data,
   };
 
@@ -95,49 +106,57 @@ function getFormData() {
 function validate(d) {
   let valid = true;
 
-  // Required: name
   if (d.name.length < 2) {
     setError("name", "Please enter your name (min 2 characters).");
     valid = false;
   }
 
-  // Required: email
   if (!isValidEmail(d.email)) {
     setError("email", "Please enter a valid email address.");
     valid = false;
   }
 
-  // Required: style
   if (!d.style) {
     setError("style", "Please select a style.");
     valid = false;
   }
 
-  // Required: placement
   if (d.placement.length < 2) {
     setError("placement", "Please enter a placement (e.g. forearm).");
     valid = false;
   }
 
-  // Required: size
   if (d.size.length < 1) {
     setError("size", "Please enter an approximate size.");
     valid = false;
   }
 
-  // Required: date
   if (!d.date) {
     setError("date", "Please select a preferred date.");
     valid = false;
   }
 
-  // Required: notes
   if (d.notes.length < 10) {
     setError("notes", "Please describe your idea (min 10 characters).");
     valid = false;
   }
 
   return valid;
+}
+
+// ---------- request actions ----------
+function toggleContacted(id) {
+  requests = requests.map((r) =>
+    r.id === id ? { ...r, contacted: !r.contacted } : r
+  );
+  saveRequests(requests);
+  renderRequests();
+}
+
+function deleteRequest(id) {
+  requests = requests.filter((r) => r.id !== id);
+  saveRequests(requests);
+  renderRequests();
 }
 
 // ---------- rendering ----------
@@ -154,6 +173,7 @@ function renderRequests() {
   for (const r of requests) {
     const li = document.createElement("li");
     li.className = "request-item";
+    if (r.contacted) li.classList.add("contacted");
 
     const top = document.createElement("div");
     top.className = "top";
@@ -174,6 +194,22 @@ function renderRequests() {
     top.appendChild(left);
     top.appendChild(right);
 
+    const actions = document.createElement("div");
+    actions.className = "req-actions";
+
+    const contactedBtn = document.createElement("button");
+    contactedBtn.className = "req-btn";
+    contactedBtn.textContent = r.contacted ? "Contacted ✓" : "Mark contacted";
+    contactedBtn.addEventListener("click", () => toggleContacted(r.id));
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "req-btn danger";
+    deleteBtn.textContent = "Delete";
+    deleteBtn.addEventListener("click", () => deleteRequest(r.id));
+
+    actions.appendChild(contactedBtn);
+    actions.appendChild(deleteBtn);
+
     const details = document.createElement("div");
     details.style.marginTop = "10px";
     details.style.color = "#cbbcff";
@@ -186,17 +222,8 @@ function renderRequests() {
     `;
 
     li.appendChild(top);
+    li.appendChild(actions);
     li.appendChild(details);
     requestsList.appendChild(li);
   }
-}
-
-// Prevent HTML injection in rendered text
-function escapeHtml(str) {
-  return String(str)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
 }

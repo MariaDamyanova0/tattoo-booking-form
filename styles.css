@@ -179,3 +179,40 @@ input:focus, select:focus, textarea:focus {
 @media (max-width: 900px) {
   .grid { grid-template-columns: 1fr; }
 }
+
+.req-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.req-btn {
+  background: transparent;
+  border: 1px solid #3b2468;
+  color: #f1ecff;
+  padding: 8px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.req-btn:hover {
+  border-color: #8a4dff;
+}
+
+.req-btn.danger {
+  border-color: #5a2040;
+  color: #ffb3c7;
+}
+
+.req-btn.danger:hover {
+  border-color: #ff4d7a;
+}
+
+.request-item.contacted {
+  opacity: 0.75;
+}
+
+.request-item.contacted .tag {
+  border-color: #8a4dff;
+}
